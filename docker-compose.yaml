@@ -1,0 +1,35 @@
+version: '3.7'
+
+services:
+  app:
+    build: .
+    container_name: findfriend-app
+    ports:
+    - "8000:8000"
+    volumes:
+      - .:/application
+    networks:
+      - app-network
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:16.2-alpine3.19
+    container_name: db-findfriend
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      PGDATA: /data/postgres
+    volumes:
+      - db:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  db:
