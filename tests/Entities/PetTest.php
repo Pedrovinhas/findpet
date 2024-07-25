@@ -8,8 +8,8 @@ use App\Exceptions\Pet\Business\PetRescuedHasntPetFounderException;
 use App\VOs\PetSitter;
 use Core\Exceptions\DomainValueNotExistsException;
 use Tests\Fakes\Entities\CreatePet as Faker;
-use Tests\TestCase;
 use InvalidArgumentException;
+use Tests\TestCase;
 
 class PetTest extends TestCase
 {
