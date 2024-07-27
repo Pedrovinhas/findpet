@@ -5,8 +5,11 @@
          colors="true"
 >
     <testsuites>
-        <testsuite name="unit_test">
+        <testsuite name="unit_entity_test">
             <directory suffix="Test.php">tests/Entities</directory>
+        </testsuite>
+        <testsuite name="unit_service_test">
+            <directory suffix="Test.php">tests/Services</directory>
         </testsuite>
     </testsuites>
     <source>
