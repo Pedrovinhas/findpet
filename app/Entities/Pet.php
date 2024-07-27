@@ -2,7 +2,7 @@
 
 namespace App\Entities;
 
-use App\Exceptions\Pet\Business\PetRescuedHasntPetFounderException;
+use App\Exceptions\Pet\Business\PetLostHasntPetFounderException;
 use Core\DomainValue;
 use Core\Entity;
 use App\VOs\PetCode;
@@ -27,16 +27,8 @@ final class Pet extends Entity
     ) {
         parent::__construct($petCode);
 
-        $this->uuid = $uuid;
-        $this->name = $name;
         $this->setWeight($weight);
         $this->setAge($age);
-        $this->neutered = $neutered;
-        $this->breed = $breed;
-        $this->sex = $sex;
-        $this->institutionUuid = $institutionUuid;
-        $this->petCondition = $petCondition;
-        $this->petSitter = $petSitter;
     }
 
     public static function create(
@@ -54,7 +46,7 @@ final class Pet extends Entity
       $petCondition = PetCondition::create($petConditionUuid);
 
       if (is_null($petSitter)) {
-        throw_unless($petCondition->isRescued(), new PetRescuedHasntPetFounderException());
+        throw_unless($petCondition->isLost(), new PetLostHasntPetFounderException());
     }
 
         return new static(
@@ -166,6 +158,11 @@ final class Pet extends Entity
     public function isNeutered()
     {
         return $this->neutered;
+    }
+
+    public function castrate()
+    {
+        $this->neutered = true;
     }
 
     public function setPetSitter(?PetSitter $petSitter)
