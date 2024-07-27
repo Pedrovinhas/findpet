@@ -4,7 +4,7 @@ namespace Tests\Entities;
 
 use Core\DomainValue;
 use App\Entities\Pet;
-use App\Exceptions\Pet\Business\PetRescuedHasntPetFounderException;
+use App\Exceptions\Pet\Business\PetLostHasntPetFounderException;
 use App\VOs\PetSitter;
 use Core\Exceptions\DomainValueNotExistsException;
 use Tests\Fakes\Entities\CreatePet as Faker;
@@ -84,7 +84,7 @@ class PetTest extends TestCase
         $petConditionUuid = '3d7e5c3b-8f74-4a6b-bbce-53a4b8a6a1df';
         $institutionUuid = 'e486c3e9-7a97-49b3-a2ca-d8e5718f1f8e';
 
-        $this->expectException(PetRescuedHasntPetFounderException::class);
+        $this->expectException(PetLostHasntPetFounderException::class);
 
         Pet::create(
           $faker->petCode,
