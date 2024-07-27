@@ -4,7 +4,7 @@ namespace App\Exceptions\Pet\Business;
 
 use Core\Exceptions\BusinessException;
 
-final class PetRescuedHasntPetFounderException extends BusinessException
+final class PetLostHasntPetFounderException extends BusinessException
 {
     public function __construct()
     {
