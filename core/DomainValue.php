@@ -4,20 +4,14 @@ namespace Core;
 
 class DomainValue
 {
-    private string $uuid;
-    private string $nome;
-
     private function __construct(
-        string $uuid,
-        string $nome
-    ) {
-        $this->uuid = $uuid;
-        $this->nome = $nome;
-    }
+        private readonly string $uuid,
+        private readonly string $name
+    ) {}
 
-    public static function create(string $uuid, $nome)
+    public static function create(string $uuid, $name)
     {
-        return new static($uuid, $nome);
+        return new static($uuid, $name);
     }
 
     public function getKey()
@@ -25,8 +19,8 @@ class DomainValue
         return $this->uuid;
     }
 
-    public function getNome()
+    public function getName()
     {
-        return $this->nome;
+        return $this->name;
     }
 }

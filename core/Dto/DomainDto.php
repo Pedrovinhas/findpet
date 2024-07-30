@@ -6,7 +6,7 @@ class DomainDto
 {
     public function __construct(
         public readonly string $uuid,
-        public readonly string $descricao
+        public readonly string $description
     ) {
     }
 }
