@@ -110,6 +110,11 @@ final class Pet extends Entity
         $this->age = $value;
     }
 
+    public function getPetCode()
+    {
+        return $this->petCode;
+    }
+
     public function getUuid()
     {
         return $this->uuid;
