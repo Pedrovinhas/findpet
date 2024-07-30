@@ -19,7 +19,7 @@ class DomainService implements Contract
     public function getAllBreeds(): array
     {
         return array_map(
-            fn (DomainValue $breed) => new DomainDto($breed->getKey(), $breed->getNome()),
+            fn (DomainValue $breed) => new DomainDto($breed->getKey(), $breed->getName()),
             $this->breedRepo->list()
         );
     }
@@ -27,8 +27,8 @@ class DomainService implements Contract
     public function getAllPetConditions(): array
     {
         return array_map(
-            fn (DomainValue $breed) => new DomainDto($breed->getKey(), $breed->getNome()),
-            $this->breedRepo->list()
+            fn (DomainValue $petCondition) => new DomainDto($petCondition->getKey(), $petCondition->getName()),
+            $this->petConditionRepo->list()
         );
     }
 }

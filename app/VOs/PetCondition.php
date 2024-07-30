@@ -34,12 +34,12 @@ class PetCondition
         return $this->value->key();
     }
 
-    public function getDescricao()
+    public function getName()
     {
-        return $this->value->description();
+        return $this->value->name();
     }
 
-    public function isRescued()
+    public function isLost()
     {
       return $this->value === PetConditionEnum::RESCUED;
     }
