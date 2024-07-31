@@ -18,4 +18,6 @@ interface PetRepositoryInterface
   public function list(FilterListPet $filter): array;
   
   public function existsPetCode(string $code): bool;     
+
+  public function delete(string $code): void;
 }

@@ -111,6 +111,20 @@ class PetRepository implements RepositoryInterface
         return $exists;
     }
 
+    public function delete(string $petCode): void
+    {
+        foreach ($this->pets as $index => $data) {
+            if ($data->getIdentity()->getValue() === $petCode) {
+                unset($this->pets[$index]);
+                $this->pets = array_values($this->pets);
+
+                return;
+            }
+        }
+
+        $this->throwErroIfPetNotExists(null, 'pet code', $petCode);
+    }
+
     public function clear(): void
     {
        $this->pets = [];
