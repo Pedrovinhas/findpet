@@ -53,23 +53,24 @@ class PetService implements Contract
         $breed =  !is_null($dto->breedUuid) ? $this->breedRepository->getByUuid($dto->breedUuid) : $pet->getBreed();
         $petCondition = $this->handleUpdatePetCondition($pet, $dto->petConditionUuid);
 
-        $updated = Pet::create(
-            $pet->getIdentity()->getValue(),
-            $dto->name ?? $pet->getName(),
-            $dto->weight ?? $pet->getWeight(),
-            $dto->age ?? $pet->getAge(),
-            $pet->isNeutered(),
-            $dto->sex ?? $pet->getSex(),
-            $breed,
-            $pet->getInstitutionRef(),
-            $petCondition->getUuid(),
-            $pet->getPetSitter(),
+        $updated = Pet::restore(
+          $pet->getIdentity()->getValue(),
+          $pet->getUuid(),
+          $dto->name ?? $pet->getName(),
+          $dto->weight ?? $pet->getWeight(),
+          $dto->age ?? $pet->getAge(),
+          $pet->isNeutered(),
+          $breed ?? $pet->getBreed(),
+          $dto->sex ?? $pet->getSex(),
+          $dto->institutionUuid ?? $pet->getInstitutionRef(),
+          $petCondition->getUuid() ?? $pet->getPetCondition()->getUuid(),
+          $pet->getPetSitter(),
         );
         $this->handleUpdatePetSitter($updated, $dto->petSitter);
         $this->handleUpdateStatus($updated, $dto);
-
+        
         $this->petRepository->update($updated);
-
+        
         return $updated;
     }
 
@@ -144,5 +145,10 @@ class PetService implements Contract
         }, $pets);
 
         return $petDtos;
+    }
+
+    public function delete(string $petCode): void
+    {
+      $this->petRepository->delete($petCode);
     }
 }
