@@ -16,4 +16,6 @@ interface PetContract
   public function update(string $uuid, UpdatePetDto $dto): Pet;
 
   public function listByFilters(FilterListPet $filter): array;
+
+  public function delete(string $petCode): void;
 }
