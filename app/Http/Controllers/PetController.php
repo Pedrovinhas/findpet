@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Dtos\Pet\FilterListPet;
 use App\Http\Requests\Pet\CreatePetRequest;
+use App\Http\Requests\Pet\ListByFilterRequest;
 use App\Services\Contracts\PetContract as PetService;
 
 class PetController extends Controller
@@ -24,10 +25,10 @@ class PetController extends Controller
         }
     }
 
-    public function list(FilterListPet $filter)
+    public function list(ListByFilterRequest $request)
     {
         try {
-            $pets = $this->service->listByFilters($filter);
+            $pets = $this->service->listByFilters($request->getFilter());
 
             return response()->json($pets);
         } catch(null) {

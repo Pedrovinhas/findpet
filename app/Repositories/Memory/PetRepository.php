@@ -92,7 +92,34 @@ class PetRepository implements RepositoryInterface
 
     public function list(FilterListPet $filter): array
     {
-        return $this->pets;
+      $filteredPets = array_filter($this->pets, function (Pet $pet) use ($filter) {
+        if ($filter->hasPetCode() && $pet->getIdentity()->getValue() !== $filter->petCode) {
+            return false;
+        }
+        if ($filter->hasName() && stripos($pet->getName(), $filter->name) === false) {
+            return false;
+        }
+
+        if ($filter->hasSex() && $pet->getSex() !== $filter->sex) {
+            return false;
+        }
+
+        if ($filter->hasBreedUuid() && $pet->getBreed()->getKey() !== $filter->breedUuid) {
+            return false;
+        }
+
+        if ($filter->hasInstitutionUuid() && $pet->getInstitutionRef() !== $filter->institutionUuid) {
+            return false;
+        }
+
+        return true;
+    });
+
+      if ($filter->hasLimit()) {
+          return array_slice($filteredPets, 0, $filter->limit);
+      }
+
+      return $filteredPets;
     }
 
     public function existsPetCode(string $petCode): bool
