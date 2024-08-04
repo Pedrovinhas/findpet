@@ -7,15 +7,15 @@ class CreatePetDto
     public ?PetSitterDto $petSitter = null;
 
     public function __construct(
-        public readonly string $petCode,
-        public readonly string $name,
-        public readonly float $weight,
-        public readonly int $age,
-        public readonly bool $neutered,
-        public readonly string $sex,
-        public readonly string $breedUuid,
-        public readonly string $petConditionUuid,
-        public readonly string $institutionUuid,
+        public string $petCode,
+        public string $name,
+        public float $weight,
+        public int $age,
+        public bool $neutered,
+        public string $sex,
+        public string $breedUuid,
+        public string $petConditionUuid,
+        public string $institutionUuid,
     ) {
     }
 
