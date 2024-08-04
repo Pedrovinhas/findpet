@@ -11,6 +11,7 @@ use App\Exceptions\Pet\Entity\PetNotExistsException;
 use App\Repositories\Memory\BreedRepository;
 use App\Repositories\Memory\PetRepository;
 use App\Services\PetService;
+use Tests\Dummies\PetDtoDummy;
 use Tests\Factories\PetFactory;
 use Tests\Fakes\Entities\CreatePet as Faker;
 use Tests\TestCase;
@@ -151,5 +152,49 @@ class PetServiceTest extends TestCase
       $pets = $service->listByFilters($filter);
 
       $this->assertCount(1, $pets);
+    }
+
+    public function test_should_list_pets_using_filter()
+    {
+      $filter = new FilterListPet();
+      $filter->name = 'Petronilo';
+      $petRepo = new PetRepository();
+
+      $service = new PetService($petRepo, new BreedRepository());
+
+      $createPetDtoInput = new PetDtoDummy();
+
+      $createSecondPetDtoInput = clone $createPetDtoInput;
+      $createSecondPetDtoInput->setName('Petronilo');
+
+      $service->create($createPetDtoInput);
+      $service->create($createSecondPetDtoInput);
+
+      
+      $pets = $service->listByFilters($filter);
+
+      $this->assertCount(1, $pets);
+    }
+
+    public function test_should_list_pets_paginated()
+    {
+      $filter = new FilterListPet();
+      $filter->limit = 3;
+      $petRepo = new PetRepository();
+
+      $service = new PetService($petRepo, new BreedRepository());
+
+      $createPetDtoInput = new PetDtoDummy();
+      $createSecondPetDtoInput = clone $createPetDtoInput;
+      $createThirdPetDtoInput = clone $createSecondPetDtoInput;
+
+      $service->create($createPetDtoInput);
+      $service->create($createSecondPetDtoInput);
+      $service->create($createThirdPetDtoInput);
+
+      
+      $pets = $service->listByFilters($filter);
+
+      $this->assertCount(3, $pets);
     }
 }
