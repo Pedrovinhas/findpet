@@ -11,4 +11,5 @@ class FilterListPet extends Filter
     public ?string $sex;
     public ?string $breedUuid;
     public ?string $institutionUuid;
+    public ?string $limit;
 }
