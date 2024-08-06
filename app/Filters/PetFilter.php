@@ -1,8 +1,10 @@
 <?php
 
-namespace App\Dtos\Pet;
+namespace App\Filters;
 
-class FilterListPet
+use Core\Filter;
+
+class PetFilter extends Filter
 {
     public ?string $name;
     public ?string $petCode;

@@ -2,9 +2,9 @@
 
 namespace App\Repositories\Memory;
 
-use App\Dtos\Pet\FilterListPet;
 use App\Entities\Pet;
 use App\Exceptions\Pet\Entity\PetNotExistsException;
+use App\Filters\PetFilter;
 use App\Repositories\Interfaces\PetRepositoryInterface as RepositoryInterface;
 use App\VOs\PetSitter;
 use Core\DomainValue;
@@ -90,7 +90,7 @@ class PetRepository implements RepositoryInterface
         throw_if(is_null($pet), new PetNotExistsException($field, $value));
     }
 
-    public function list(FilterListPet $filter): array
+    public function list(PetFilter $filter): array
     {
       $filteredPets = array_filter($this->pets, function (Pet $pet) use ($filter) {
         if ($filter->hasPetCode() && $pet->getIdentity()->getValue() !== $filter->petCode) {

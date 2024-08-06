@@ -2,8 +2,8 @@
 
 namespace App\Repositories\Interfaces;
 
-use App\Dtos\Pet\FilterListPet;
 use App\Entities\Pet;
+use App\Filters\PetFilter;
 
 interface PetRepositoryInterface
 {
@@ -15,7 +15,7 @@ interface PetRepositoryInterface
 
   public function getByUuid(string $uuid): Pet;
   
-  public function list(FilterListPet $filter): array;
+  public function list(PetFilter $filter): array;
   
   public function existsPetCode(string $code): bool;     
 

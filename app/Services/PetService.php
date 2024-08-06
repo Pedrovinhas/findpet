@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Adapters\PetFilterAdapter;
 use App\Services\Contracts\PetContract as Contract; 
 use App\Dtos\Pet\CreatePetDto;
 use App\Dtos\Pet\FilterListPet;
@@ -120,7 +121,8 @@ class PetService implements Contract
 
     public function listByFilters(FilterListPet $filter): array
     {
-        $pets = $this->petRepository->list($filter);
+        $petFilter = PetFilterAdapter::convert($filter);
+        $pets = $this->petRepository->list($petFilter);
 
         $petDtos = array_map(function($pet) {
             $petSitterDto = null;
