@@ -17,7 +17,7 @@ class PetCode implements Identity
         return new static('');
     }
 
-    public static function restore(string $codigo): Identity
+    public static function create(string $codigo): Identity
     {
         return new static($codigo);
     }

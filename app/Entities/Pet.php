@@ -50,7 +50,7 @@ final class Pet extends Entity
     }
 
         return new static(
-            PetCode::restore($petCode),
+            PetCode::create($petCode),
             Uuid::uuid4(),
             $name,
             $weight,
@@ -78,7 +78,7 @@ final class Pet extends Entity
         PetSitter $petSitter = null
     ) {
         return new static(
-            PetCode::restore($petCode),
+            PetCode::create($petCode),
             $uuid,
             $name,
             $weight,

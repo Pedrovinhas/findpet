@@ -15,18 +15,13 @@ class PetCondition
         $this->value = $value;
     }
 
-    public static function create(string $key): self
+    public static function create(string $identifier): self
     {
-        if (PetConditionEnum::isValidValue($key)) {
-            return new static(PetConditionEnum::from($key));
+        if (PetConditionEnum::isValidValue($identifier)) {
+            return new static(PetConditionEnum::from($identifier));
         }
 
-        throw new DomainValueNotExistsException("{$key} is not a valid backing value for enum " . PetConditionEnum::class);
-    }
-
-    public static function restore(string $key)
-    {
-        return new static(PetConditionEnum::from($key));
+        throw new DomainValueNotExistsException("{$identifier} is not a valid backing value for enum " . PetConditionEnum::class);
     }
 
     public function getUuid()
